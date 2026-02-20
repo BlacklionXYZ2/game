@@ -31,7 +31,7 @@ class Structure:
 
     def spawn_items(self, encounterCoeff):
         if random.randint(1, 10) / 10 >= encounterCoeff:
-            item = random.choice(items.weapon1.all)
+            item = random.choice(items.weapon1.all)()
             self.add_entities(item)
 
 
