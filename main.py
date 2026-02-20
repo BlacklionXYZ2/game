@@ -35,12 +35,15 @@ class Player(entity.Entity):
         self.check_coords()
 
     def pick_up(self, item):
-        map1.main[self.y][self.x].remove(item)
-        self.inventory.append(item)
+        item_moved = (object if object.name == item else None for object in items.weapon1.all)
+        print(map1.main[self.y][self.x])
+        map1.main[self.y][self.x].items.remove(item)
+        self.inventory.append(item_moved)
 
     def drop(self, item):
-        self.inventory.remove(item)
-        map1.main[self.y][self.x].append(item)
+        item_moved = (object if object.name == item else None for object in items.weapon1.all)
+        self.inventory.remove(item_moved)
+        map1.main[self.y][self.x].items.append(item)
 
 
 player =  Player()
@@ -70,10 +73,16 @@ while game:
             player.move('left')
         if cmd[1] == 'right':
             player.move('right')
-    if cmd[0] == 'save':
+
+    elif cmd[0] == 'save':
         save()
-    if cmd[0] == 'leave':
+
+    elif cmd[0] == 'leave':
         save()
         game = False
-    if cmd[0] == 'map':
+
+    elif cmd[0] == 'map':
         map1.draw()
+    
+    elif cmd[0] == 'pick' and cmd[1] == 'up':
+        player.pick_up(cmd[2])

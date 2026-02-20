@@ -39,20 +39,24 @@ class Pond(Structure):
     def __init__(self, x, y, encounterCoeff = 0.5):
         super().__init__(name = 'Pond', x = x, y = y, encounterCoeff = encounterCoeff)
         self.spawn_entities(encounterCoeff)
+        self.spawn_items(encounterCoeff)
 
 class Meadow(Structure):
     def __init__(self, x, y, encounterCoeff = 0.5):
         super().__init__(name = 'Meadow', x = x, y = y, encounterCoeff = encounterCoeff)
         self.spawn_entities(encounterCoeff)
+        self.spawn_items(encounterCoeff)
 
 class Field(Structure):
     def __init__(self, x, y, encounterCoeff = 0.3):
         super().__init__(name = 'Field', x = x, y = y, encounterCoeff = encounterCoeff)
         self.spawn_entities(encounterCoeff)
+        self.spawn_items(encounterCoeff)
 
 class Plains(Structure):
     def __init__(self, x, y, encounterCoeff = 0.7):
         super().__init__(name = 'Plains', x = x, y = y, encounterCoeff = encounterCoeff)
         self.spawn_entities(encounterCoeff)
+        self.spawn_items(encounterCoeff)
 
 structure1 = Structure(name = 'structure', x = 0, y = 0, encounterCoeff = 0)
