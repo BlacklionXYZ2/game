@@ -31,8 +31,8 @@ class Structure:
 
     def spawn_items(self, encounterCoeff):
         if random.randint(1, 10) / 10 >= encounterCoeff:
-            ent = random.choice(items.weapon1.all)(random.randint(1, 2), self.x, self.y)
-            self.add_entities(ent)
+            item = random.choice(items.weapon1.all)
+            self.add_entities(item)
 
 
 class Pond(Structure):
