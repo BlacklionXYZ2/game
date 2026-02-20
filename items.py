@@ -11,7 +11,7 @@ class Item:
 
 class Food(Item):
     def __init__(self, healValue, name):
-        super.__init__(name = name)
+        super().__init__(name = name)
         self.healValue = healValue
 
     def eat(self, user):
@@ -44,6 +44,15 @@ class Ranged(Weapon):
         super().__init__(name = name, rarity = rarity, damage = damage, durability = durability)
         self.ammo = ammo
         self.maxAmmo = maxAmmo
+
+    def attack(self, target):
+        if target.armor <= self.damage + random.randint(1,10) and self.ammo > 0 and self.ammo <= self.maxAmmo:
+            target.health -= self.damage
+            target.armor -= 1
+            self.durability -= 1
+            self.ammo -= 1
+        else:
+            pass
 
 
 
