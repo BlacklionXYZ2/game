@@ -15,6 +15,8 @@ class Entity:
         self.armor = random.randint(1, 10)
         self.inventory = []
         self.health = random.randint((tier - 1) * 20, tier * 20)
+        self.max_mana = random.randint((tier - 1) * 10, tier * 10)
+        self.current_mana = self.max_mana
 
     def show_inventory(self):
         show_inv = []
