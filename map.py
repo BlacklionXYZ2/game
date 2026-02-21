@@ -7,11 +7,8 @@ class Map:
         self.main = [[[s.Pond(0, 0)]]]
 
     def draw(self):
-        for col in self.main:
-            row = []
-            for y in col:
-                row.append([y[0].name])
-            print(row)
+        structs_in_row = [struct[0].name for row in self.main for struct in row]
+        print(structs_in_row)
 
 
     def gen_row(self, up, coord):

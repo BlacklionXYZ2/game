@@ -34,16 +34,19 @@ class Player(entity.Entity):
             self.x += 1
         self.check_coords()
 
-    def pick_up(self, item):
-        item_moved = (object if object.name == item else None for object in items.weapon1.all)
-        print(map1.main[self.y][self.x])
-        map1.main[self.y][self.x].items.remove(item)
+    def pick_up(self, item_name):
+        for object in items.all.items:
+            if object.name == item_name:
+                item_moved = object
+        map1.main[self.y][self.x][0].items.remove(item_moved)
         self.inventory.append(item_moved)
 
-    def drop(self, item):
-        item_moved = (object if object.name == item else None for object in items.weapon1.all)
+    def drop(self, item_name):
+        for object in items.all.items:
+            if object.name == item_name:
+                item_moved = object
         self.inventory.remove(item_moved)
-        map1.main[self.y][self.x].items.append(item)
+        map1.main[self.y][self.x][0].items.append(item_moved)
 
 
 player =  Player()

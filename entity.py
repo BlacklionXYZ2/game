@@ -22,7 +22,7 @@ class Entity:
 class Enemy(Entity):
     def __init__(self, tier, x, y):
         super().__init__(tier, x, y)
-        self.inventory.append(random.choice(items.weapon1.all))
+        self.inventory.append(random.choice(items.all.weapons))
 
 class Skeleton(Enemy):
     def __init__(self, x, y, name = 'skeleton', tier = 1):

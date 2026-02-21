@@ -10,8 +10,8 @@ class Item:
         
 
 class Food(Item):
-    def __init__(self, healValue, name):
-        super().__init__(name = name)
+    def __init__(self, healValue, name, rarity):
+        super().__init__(name = name, rarity = rarity)
         self.healValue = healValue
 
     def eat(self, user):
@@ -21,15 +21,15 @@ class Food(Item):
         user.inventory.remove(self)
 
 class Apple(Food):
-    def __init__(self, healValue = 2, name = 'Apple'):
-        super().__init__(healValue, name)
+    def __init__(self, healValue = 2, name = 'Apple', rarity = 'common'):
+        super().__init__(healValue, name, rarity = rarity)
 
 class Weapon(Item):
     def __init__(self, damage, durability, name, rarity):
         super().__init__(name = name, rarity = rarity)
         self.damage = damage
         self.durability = durability
-        self.all = [BasicSword, BasicAxe, BasicGun]
+        
     
     def attack(self, target):
         if target.armor <= self.damage + random.randint(1,10):
@@ -93,4 +93,9 @@ class BasicGun(Ranged):
         else:
             pass
 
-weapon1 = Weapon(damage = 0, durability = 1, name = 'unknown', rarity = 'common')
+class all_items:
+    def __init__(self):
+        self.items = [BasicSword(), BasicAxe(), BasicGun(), Apple()]
+        self.weapons = [BasicSword(), BasicAxe(), BasicGun()]
+        self.non_weapon_items = [Apple()]
+all = all_items()
