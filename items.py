@@ -117,7 +117,7 @@ class BasicGun(Ranged):
 
 class all_items:
     def __init__(self):
-        self.items = [BasicSword(), BasicAxe(), BasicGun(), Apple()]
+        self.items = [BasicSword(), BasicAxe(), BasicGun(), Apple(), ManaPotion()]
         self.weapons = [BasicSword(), BasicAxe(), BasicGun()]
-        self.non_weapon_items = [Apple()]
+        self.non_weapon_items = [Apple(), ManaPotion()]
 all = all_items()
