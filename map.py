@@ -14,7 +14,7 @@ class Map:
     def gen_row(self, up, coord):
         ref = []
         for col in self.main[0]:
-            ref.append([random.choice(s.structure1.all)(coord[0], coord[1])])
+            ref.append([random.choice(s.all.structs)(coord[0], coord[1])])
         if up:
             self.main.insert(0, ref)
         else:
@@ -23,9 +23,9 @@ class Map:
     def gen_col(self, right, coord):
         for col in range(len(self.main)):
             if right:
-                self.main[col].append([random.choice(s.structure1.all)(coord[0], coord[1])])
+                self.main[col].append([random.choice(s.all.structs)(coord[0], coord[1])])
             else:
-                self.main[col].insert(0, [random.choice(s.structure1.all)(coord[0], coord[1])])
+                self.main[col].insert(0, [random.choice(s.all.structs)(coord[0], coord[1])])
 
            
 

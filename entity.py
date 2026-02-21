@@ -15,8 +15,6 @@ class Entity:
         self.armor = random.randint(1, 10)
         self.inventory = []
         self.health = random.randint((tier - 1) * 20, tier * 20)
-        self.all = [Skeleton, Zombie]
-
 
 
 class Enemy(Entity):
@@ -34,4 +32,7 @@ class Zombie(Enemy):
         super().__init__(tier, x, y)
         self.name = name
         
-entity1 = Entity(1, 0, 0)
+class all_entities:
+    def __init__(self):
+        self.enemies = [Skeleton, Zombie]
+all = all_entities()

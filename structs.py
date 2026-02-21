@@ -8,7 +8,6 @@ class Structure:
         self.entities = []
         self.items = []
         self.encounterCoefficient = encounterCoeff
-        self.all = [Pond, Meadow, Field, Plains]
 
     def add_entities(self, entity):
         if type(entity) == list:
@@ -26,7 +25,7 @@ class Structure:
 
     def spawn_entities(self, encounterCoeff):
         if random.randint(1, 10) / 10 >= encounterCoeff:
-            ent = random.choice(entity.entity1.all)(random.randint(1, 2), self.x, self.y)
+            ent = random.choice(entity.all.enemies)(random.randint(1, 2), self.x, self.y)
             self.add_entities(ent)
 
     def spawn_items(self, encounterCoeff):
@@ -59,4 +58,7 @@ class Plains(Structure):
         self.spawn_entities(encounterCoeff)
         self.spawn_items(encounterCoeff)
 
-structure1 = Structure(name = 'structure', x = 0, y = 0, encounterCoeff = 0)
+class all_structs:
+    def __init__(self):
+        self.structs = [Pond, Meadow, Field, Plains]
+all = all_structs()
