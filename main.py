@@ -70,11 +70,11 @@ while game:
     if cmd[0] == 'move':
         if cmd[1] == 'up':
             player.move('up')
-        if cmd[1] == 'down':
+        elif cmd[1] == 'down':
             player.move('down')
-        if cmd[1] == 'left':
+        elif cmd[1] == 'left':
             player.move('left')
-        if cmd[1] == 'right':
+        elif cmd[1] == 'right':
             player.move('right')
 
     elif cmd[0] == 'save':
@@ -84,8 +84,11 @@ while game:
         save()
         game = False
 
-    elif cmd[0] == 'map':
-        map1.draw()
-    
+    elif cmd[0] == 'show':
+        if cmd[1] == 'map':
+            map1.draw()
+        elif cmd[1] == 'inventory' or cmd[1] == 'inv':
+            player.show_inventory()
+
     elif cmd[0] == 'pick' and cmd[1] == 'up':
         player.pick_up(cmd[2])

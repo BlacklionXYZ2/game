@@ -21,7 +21,7 @@ class Food(Item):
         user.inventory.remove(self)
 
 class Apple(Food):
-    def __init__(self, healValue = 2, name = 'Apple', rarity = 'common'):
+    def __init__(self, healValue = 2, name = 'apple', rarity = 'common'):
         super().__init__(healValue, name, rarity = rarity)
 
 class Weapon(Item):

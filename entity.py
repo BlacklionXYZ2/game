@@ -16,6 +16,12 @@ class Entity:
         self.inventory = []
         self.health = random.randint((tier - 1) * 20, tier * 20)
 
+    def show_inventory(self):
+        show_inv = []
+        for item in self.inventory:
+            show_inv.append(item.name)
+        print(show_inv)
+
 
 class Enemy(Entity):
     def __init__(self, tier, x, y):
