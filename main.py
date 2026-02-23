@@ -12,6 +12,16 @@ def load():
         exec(file.read())
         file.close()
 
+def find_item(item_name, entity = None, find_from_all = False):
+    if find_from_all:
+        for item in items.all.items:
+                if item.name == item_name:
+                    return item
+    else:
+        for item in entity.inventory:
+                if item.name == item_name:
+                    return item
+
 
 class Player(entity.Entity):
     def __init__(self):
@@ -35,16 +45,12 @@ class Player(entity.Entity):
         self.check_coords()
 
     def pick_up(self, item_name):
-        for object in items.all.items:
-            if object.name == item_name:
-                item_moved = object
+        item_moved = find_item(item_name, find_from_all = True)
         map1.main[self.y][self.x][0].items.remove(item_moved)
         self.inventory.append(item_moved)
 
     def drop(self, item_name):
-        for object in items.all.items:
-            if object.name == item_name:
-                item_moved = object
+        item_moved = find_item(item_name, find_from_all = True)
         self.inventory.remove(item_moved)
         map1.main[self.y][self.x][0].items.append(item_moved)
 
@@ -77,18 +83,26 @@ while game:
         elif cmd[1] == 'right':
             player.move('right')
 
+    elif cmd[0] == 'show':
+        if cmd[1] == 'map':
+            map1.draw()
+        elif cmd[1] == 'inventory' or cmd[1] == 'inv':
+            player.show_inventory()
+        elif cmd[1] == 'stats':
+            player.show_necessary()
+        elif cmd[1] == 'character':
+            player.show_entity()
+        elif cmd[1] == 'item':
+            item = find_item(cmd[2], player)
+            item.show_item()
+
+    elif cmd[0] == 'pick' and cmd[1] == 'up':
+        player.pick_up(cmd[2])
+
+
     elif cmd[0] == 'save':
         save()
 
     elif cmd[0] == 'leave':
         save()
         game = False
-
-    elif cmd[0] == 'show':
-        if cmd[1] == 'map':
-            map1.draw()
-        elif cmd[1] == 'inventory' or cmd[1] == 'inv':
-            player.show_inventory()
-
-    elif cmd[0] == 'pick' and cmd[1] == 'up':
-        player.pick_up(cmd[2])

@@ -6,6 +6,10 @@ class Item:
         self.name = name
         self.rarity = rarity
         self.all = [Apple, BasicAxe, BasicGun, BasicSword]
+
+    def show_item(self):
+        print(f'Item Name: {self.name}')
+        print(f'Rarity: {self.rarity}')
         
         
 
@@ -14,11 +18,16 @@ class Food(Item):
         super().__init__(name = name, rarity = rarity)
         self.healValue = healValue
 
-    def eat(self, user):
+    def consume(self, user):
         user.health += self.healValue
-        if user.health > user.tier * 20:
-            user.health = user.tier * 20
+        if user.health > user.max_health:
+            user.health = user.max_health
         user.inventory.remove(self)
+
+    def show_item(self):
+        print(f'Item Name: {self.name}')
+        print(f'Rarity: {self.rarity}')
+        print(f'Healing: {self.healValue}')
 
 class Apple(Food):
     def __init__(self, healValue = 2, name = 'apple', rarity = 'common'):
@@ -33,6 +42,12 @@ class ManaPotion(Item):
         user.current_mana += self.mana_value
         if user.current_mana > user.max_mana:
             user.current_mana = user.max_mana
+        user.inventory.remove(self)
+
+    def show_item(self):
+        print(f'Item Name: {self.name}')
+        print(f'Rarity: {self.rarity}')
+        print(f'Mana Restoration: {self.mana_value}')
 
 
 
@@ -40,6 +55,7 @@ class Weapon(Item):
     def __init__(self, damage, durability, name, rarity):
         super().__init__(name = name, rarity = rarity)
         self.damage = damage
+        self.max_durability = durability
         self.durability = durability  
     
     def attack(self, target):
@@ -50,11 +66,17 @@ class Weapon(Item):
         else:
             pass
 
+    def show_item(self):
+        print(f'Item Name: {self.name}')
+        print(f'Rarity: {self.rarity}')
+        print(f'Damage: {self.damage}')
+        print(f'Durability: {self.durability}/{self.max_durability}')
+
 class Ranged(Weapon):
-    def __init__(self, damage, durability, name, rarity, ammo, maxAmmo):
+    def __init__(self, damage, durability, name, rarity, ammo, max_ammo):
         super().__init__(name = name, rarity = rarity, damage = damage, durability = durability)
         self.ammo = ammo
-        self.maxAmmo = maxAmmo
+        self.max_ammo = max_ammo
 
     def attack(self, target):
         if target.armor <= self.damage + random.randint(1,10) and self.ammo > 0 and self.ammo <= self.maxAmmo:
@@ -64,6 +86,13 @@ class Ranged(Weapon):
             self.ammo -= 1
         else:
             pass
+
+    def show_item(self):
+        print(f'Item Name: {self.name}')
+        print(f'Rarity: {self.rarity}')
+        print(f'Damage: {self.damage}')
+        print(f'Durability: {self.durability}/{self.max_durability}')
+        print(f'Ammo: {self.ammo}/{self.max_ammo}')
 
 class Magic(Weapon):
     def __init__(self, mana_cost, damage, durability, name, rarity):
@@ -75,9 +104,14 @@ class Magic(Weapon):
             target.health -= self.damage
             target.armor -= 1
             user.current_mana -= 1
-            self.durability -= 1
         else:
             pass
+
+    def show_item(self):
+        print(f'Item Name: {self.name}')
+        print(f'Rarity: {self.rarity}')
+        print(f'Damage: {self.damage}')
+        print(f'Mana Cost: {self.mana_cost}')
 
 
 
@@ -111,7 +145,7 @@ class BasicGun(Ranged):
         super().__init__(name = 'gun', rarity = 'uncommon', damage = 20, durability = 35, ammo = random.randint(1, 14), maxAmmo = 14)
 
     def attack(self, user, target):
-        if user.dex + 2 + random.randint(1, 10) >= target.armour:
+        if user.dex + 2 + random.randint(1, 10) >= target.armour and self.ammo > 0:
             target.health -= self.damage - target.armour + random.randint(1, user.dex)
             target.armour -= 1
             self.durability-= 1
@@ -126,13 +160,13 @@ class BasicWand(Magic):
 
     def attack(self, user, target):
         hit_value = user.wis + 3 + random.randint(1, 12)
-        if hit_value >= target.armour:
+        if hit_value >= target.armour and user.mana >= self.mana_cost:
             target.health -= self.damage - target.armour + random.randint(1, user.wis * (self.damage / 10) / 5)
             target.armour -= 1
-            user.current_mana -= self.mana_cost
+            user.mana -= self.mana_cost
         else:
             pass
-        
+
 
 class all_items:
     def __init__(self):
