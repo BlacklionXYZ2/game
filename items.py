@@ -34,6 +34,8 @@ class ManaPotion(Item):
         if user.current_mana > user.max_mana:
             user.current_mana = user.max_mana
 
+
+
 class Weapon(Item):
     def __init__(self, damage, durability, name, rarity):
         super().__init__(name = name, rarity = rarity)
@@ -78,6 +80,7 @@ class Magic(Weapon):
             pass
 
 
+
 class BasicSword(Weapon):
     def __init__(self):
         super().__init__(name = 'sword', rarity = 'common', damage = 5, durability = 15)
@@ -102,6 +105,7 @@ class BasicAxe(Weapon):
         else:
             pass
 
+
 class BasicGun(Ranged):
     def __init__(self):
         super().__init__(name = 'gun', rarity = 'uncommon', damage = 20, durability = 35, ammo = random.randint(1, 14), maxAmmo = 14)
@@ -115,9 +119,24 @@ class BasicGun(Ranged):
         else:
             pass
 
+
+class BasicWand(Magic):
+    def __init__(self, mana_cost = 10, damage = 50, durability = 2**32, name = 'wand', rarity = 'rare'):
+        super().__init__(mana_cost, damage, durability, name, rarity)
+
+    def attack(self, user, target):
+        hit_value = user.wis + 3 + random.randint(1, 12)
+        if hit_value >= target.armour:
+            target.health -= self.damage - target.armour + random.randint(1, user.wis * (self.damage / 10) / 5)
+            target.armour -= 1
+            user.current_mana -= self.mana_cost
+        else:
+            pass
+        
+
 class all_items:
     def __init__(self):
         self.items = [BasicSword(), BasicAxe(), BasicGun(), Apple(), ManaPotion()]
-        self.weapons = [BasicSword(), BasicAxe(), BasicGun()]
+        self.weapons = [BasicSword(), BasicAxe(), BasicGun(), BasicWand()]
         self.non_weapon_items = [Apple(), ManaPotion()]
 all = all_items()
